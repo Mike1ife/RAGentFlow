@@ -1,27 +1,27 @@
-Backend/__pycache__/*
-Backend/.env
+backend/__pycache__/*
+backend/.env
 
 # Logs
-Frontend/logs
-Frontend/*.log
-Frontend/npm-debug.log*
-Frontend/yarn-debug.log*
-Frontend/yarn-error.log*
-Frontend/pnpm-debug.log*
-Frontend/lerna-debug.log*
+frontend/logs
+frontend/*.log
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/lerna-debug.log*
 
-Frontend/node_modules
-Frontend/dist
-Frontend/dist-ssr
-Frontend/*.local
+frontend/node_modules
+frontend/dist
+frontend/dist-ssr
+frontend/*.local
 
 # Editor directories and files
-Frontend/.vscode/*
-Frontend/!.vscode/extensions.json
-Frontend/.idea
-Frontend/.DS_Store
-Frontend/*.suo
-Frontend/*.ntvs*
-Frontend/*.njsproj
-Frontend/*.sln
-Frontend/*.sw?
+frontend/.vscode/*
+frontend/!.vscode/extensions.json
+frontend/.idea
+frontend/.DS_Store
+frontend/*.suo
+frontend/*.ntvs*
+frontend/*.njsproj
+frontend/*.sln
+frontend/*.sw?

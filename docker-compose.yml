@@ -18,12 +18,12 @@ services:
       timeout: 5s
       retries: 5
   backend:
-    build: ./Backend
-    container_name: backend-service
+    build: ./backend
+    container_name: backend
     ports:
       - "8000:8000"
     volumes:
-      - ./Backend:/app
+      - ./backend:/app
     environment:
       - DB_HOST=postgres
       - DB_PORT=5432
@@ -34,12 +34,12 @@ services:
       postgres:
         condition: service_healthy
   frontend:
-    build: ./Frontend
-    container_name: frontend-service
+    build: ./frontend
+    container_name: frontend
     ports:
       - "5173:5173"
     volumes:
-      - ./Frontend:/app
+      - ./frontend:/app
       - /app/node_modules
     depends_on:
       - backend
