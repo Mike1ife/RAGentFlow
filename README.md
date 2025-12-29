@@ -1,1 +1,1 @@
-# RAG-MAS-Visual
+# Multi-Agent RAG Workflow Visualization — RAGentFlow
