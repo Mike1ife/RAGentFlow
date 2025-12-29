@@ -1,0 +1,62 @@
+.dashboard {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #f9fafb;
+}
+
+.header-container {
+    background-color: white;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 13rem;
+}
+
+.header-container h1 {
+    font-size: 1.5rem;
+}
+
+.header-container button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 0.75rem 0.6rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+
+.tabs-container {
+    background-color: white;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    padding-left: 13rem;
+    gap: 3rem;
+}
+
+.tab {
+    border: none;
+    width: 8rem;
+    background-color: white;
+    padding: 0.8rem 0;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tab.active {
+    color: #2563eb;
+    border-bottom: 1px solid #2563eb;
+}
+
+.tab-icon {
+    width: 1rem;
+    height: 1rem;
+}

@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: ankane/pgvector:latest
+    container_name: pgvector-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: vectordb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U admin -d vectordb" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  backend:
+    build: ./Backend
+    container_name: backend-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./Backend:/app
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=admin123
+      - DB_NAME=vectordb
+    depends_on:
+      postgres:
+        condition: service_healthy
+  frontend:
+    build: ./Frontend
+    container_name: frontend-service
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./Frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  pgdata:

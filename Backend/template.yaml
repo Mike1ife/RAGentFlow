@@ -1,0 +1,120 @@
+guided_template:
+  name: guided_template
+  description: Guided template for defining structured system instructions.
+  
+  context_system_prompt: |
+    Use the following context as your learned knowledge.
+
+    Context:
+    {context}
+
+    When answering the user:
+    - If you don't know the answer, simply state that you don't know.
+    - If you're unsure, seek clarification.
+    - Avoid mentioning that the information was sourced from the context.
+    - Respond in accordance with the language of the user's query.
+
+  template: |
+    You should follow the role given as the following.
+    - Role: {persona}
+    - Goal: {goal}
+    - Response style: {style}
+
+    ---
+    USER QUERY:
+    {query}
+
+  input_variables:
+    context:
+      input_role: system_injected
+      description: Retrieved RAG context injected into the system prompt.
+
+    persona:
+      input_role: user_input
+      description: The role or identity the assistant should adopt.
+
+    goal:
+      input_role: user_input
+      description: The objective or purpose of the assistant's response.
+
+    style:
+      input_role: user_input
+      description: The tone or formatting style of the response.
+
+    query:
+      input_role: runtime_injected
+      description: Placeholder where the runtime user query will be inserted.
+
+structured_template:
+  name: structured_template
+  description: Advanced editable system prompt with structured sections.
+
+  context_system_prompt: |
+    Use the following context as your learned knowledge.
+
+    Context:
+    {context}
+
+  template: |
+    {system_header}
+
+    Role:
+    {persona_block}
+
+    Style:
+    {style_block}
+
+    ---
+    USER QUERY:
+    {query}
+
+  input_variables:
+    context:
+      input_role: system_injected
+      description: RAG context injected into the system prompt.
+
+    system_header:
+      input_role: user_input
+      description: High-level system rules defining agent behavior.
+
+    persona_block:
+      input_role: user_input
+      description: Editable persona or role definition.
+
+    style_block:
+      input_role: user_input
+      description: Editable response tone and formatting instructions.
+
+    query:
+      input_role: runtime_injected
+      description: Placeholder where the runtime user query will be inserted.
+
+raw_template:
+  name: raw_template
+  description: Fully freeform system prompt editor for expert users.
+
+  context_system_prompt: |
+    Use the following context as your learned knowledge.
+
+    Context:
+    {context}
+
+  template: |
+    {raw_system_prompt}
+
+    ---
+    USER QUERY:
+    {query}
+
+  input_variables:
+    context:
+      input_role: system_injected
+      description: RAG context injected into the system prompt.
+
+    raw_system_prompt:
+      input_role: user_input
+      description: Arbitrary system instructions defined by the user.
+
+    query:
+      input_role: runtime_injected
+      description: Placeholder where the runtime user query will be inserted.
