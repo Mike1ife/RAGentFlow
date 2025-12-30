@@ -112,7 +112,7 @@ export default function Dashboard() {
     return (
         <div className="dashboard">
             <header className="header-container">
-                <h1>RAG MAS Visual</h1>
+                <h1>RAGentFlow</h1>
                 <button onClick={onClickStartSimulation}>🚀 Start RAG & MAS Simulation</button>
             </header>
 

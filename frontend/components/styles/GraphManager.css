@@ -129,6 +129,10 @@
     gap: 1rem;
 }
 
+.agent-row svg {
+    flex-shrink: 0;
+}
+
 .selected-agent-row {
     outline: 3px solid #555;
     outline-offset: 3px;

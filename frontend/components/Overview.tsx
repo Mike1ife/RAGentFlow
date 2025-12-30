@@ -45,7 +45,7 @@ export default function Overview() {
                         <p className="model-description">HuggingFace embeddings (384 dimensions)</p>
                     </div>
                     <div className="card">
-                        <h4>Reranking Model</h4>
+                        <h4>Reranker</h4>
                         <p className="model-name">ms-marco-MiniLM-L-6-v2</p>
                         <p className="model-description">Cross-encoder for relevance scoring</p>
                     </div>

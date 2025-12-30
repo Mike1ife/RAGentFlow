@@ -1,4 +1,4 @@
-backend/__pycache__/*
+backend/__pycache__
 backend/.env
 
 # Logs
@@ -25,3 +25,5 @@ frontend/*.ntvs*
 frontend/*.njsproj
 frontend/*.sln
 frontend/*.sw?
+
+init.sql

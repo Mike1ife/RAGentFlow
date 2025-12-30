@@ -42,6 +42,10 @@
     transition: transform 0.2s ease;
 }
 
+.trace-row svg {
+    flex-shrink: 0;
+}
+
 .trace-row:hover {
     cursor: pointer;
     transform: translateY(-0.2rem);

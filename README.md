@@ -1,4 +1,10 @@
-# Multi-Agent RAG Workflow Visualization — RAGentFlow
+# RAGentFlow - RAG and Multi-Agent Workflow Visualization
+
+**RAGentFlow** is a visual playground for understanding how RAG (Retrieval-Augmented Generation) and multi-agent systems work together in modern LLM applications. As these technologies become fundamental to agentic AI applications, this platform demystifies their operation by allowing users to visually build, run, and trace multi-agent workflows in real-time.
+
+Through an intuitive interface, users can construct agent networks, upload documents for retrieval, define decision logic, and watch queries flow through the system step-by-step. This hands-on approach helps developers, researchers, and students grasp the core concepts of how intelligent agents collaborate, make decisions, and leverage document context to generate responses.
+
+Key features include visual workflow construction, execution tracing, RAG context visualization, customizable agent behaviors, and detailed insights into each decision point—making it an ideal learning and prototyping environment for understanding LLM application architectures.
 
 ## Table of Contents
 

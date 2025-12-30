@@ -149,7 +149,7 @@ export default function ResultVisual({ waitResult, onResultReady }: { waitResult
                             <span className="trace-row-agent-name">{trace.agent}</span>
                             <span className="trace-row-agent-output">
                                 {trace.agentType === "responder" ?
-                                    `"${trace.output.slice(0, 19)}......"` :
+                                    `"${trace.output.slice(0, 50)}......"` :
                                     renderMatchedCondition(trace)}
                             </span>
                         </div>

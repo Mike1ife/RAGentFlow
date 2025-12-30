@@ -127,6 +127,10 @@ export default function GraphCanvas({ graph, selectedAgent, selectedEdge, onClic
             offsetY -= (viewHeight - contentHeight) / 2;
         }
 
+        if (viewWidth < width) {
+            return `0 0 ${width} ${height}`;
+        }
+
         return `${offsetX} ${offsetY} ${viewWidth} ${viewHeight}`;
     };
 
