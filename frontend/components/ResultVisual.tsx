@@ -21,6 +21,9 @@ export default function ResultVisual({ waitResult, onResultReady }: { waitResult
 
     const loadResult = async () => {
         try {
+
+            setSelectRAG(false);
+            setSelectedTrace(null);
             const data = await api.simulation.getResult();
             setResult(data);
         } catch (err: any) {

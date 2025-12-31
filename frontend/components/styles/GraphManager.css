@@ -266,4 +266,6 @@
     font-weight: 500;
     fill: white;
     cursor: pointer;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
 }

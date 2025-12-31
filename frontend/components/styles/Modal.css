@@ -193,6 +193,11 @@
     padding: 1rem;
     font-weight: 475;
     border-radius: 0.5rem;
+    white-space: pre-line;
+    font-family: monospace;
+    font-size: 0.9rem;
+    max-height: 30vh;
+    overflow: auto;
 }
 
 .chunk-detail-modal-similar h4 {
