@@ -4,7 +4,7 @@ import { type Edge, type Graph, type AgentNode, MathDisplayMap } from "../types/
 import api from "../utils/api";
 import EdgeFormModal from "./modals/EdgeFormModal";
 import AgentFormModal from "./modals/AgentFormModal";
-import AgentIcon from "./AgentIcon";
+import AgentIcon from "./items/AgentIcon";
 import GraphCanvas from "./GraphCanvas";
 import WarningModal from "./modals/WarningModal";
 

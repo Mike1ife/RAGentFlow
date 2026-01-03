@@ -3,7 +3,7 @@ import type { RespondTrace, Result, RetrievedChunk, RouteTrace } from "../types/
 import { ThreeDot } from "react-loading-indicators";
 import { useEffect, useState } from "react";
 import api from "../utils/api";
-import AgentIcon from "./AgentIcon";
+import AgentIcon from "./items/AgentIcon";
 import { MathDisplayMap, type Edge, type GraphOperator } from "../types/graph";
 import GraphCanvas from "./GraphCanvas";
 import FullContentModal from "./modals/FullContentModal";

@@ -1,0 +1,1 @@
+export type validTabs = "overview" | "files" | "graph" | "prompt" | "result";

@@ -17,7 +17,12 @@
     font-size: 1.5rem;
 }
 
-.header-container button {
+.header-button {
+    display: flex;
+    gap: 1rem;
+}
+
+.header-button button {
     background-color: #2563eb;
     color: white;
     border: none;
@@ -28,6 +33,11 @@
     cursor: pointer;
 }
 
+.tutorial-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+}
 
 .tabs-container {
     background-color: white;

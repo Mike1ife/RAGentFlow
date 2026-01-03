@@ -499,3 +499,67 @@
     overflow-wrap: anywhere;
     overflow-y: auto;
 }
+
+.tutorial-modal-container {
+    background-color: white;
+    border-radius: 0.75rem;
+    width: 35%;
+    max-height: 90vh;
+}
+
+.tutorial-modal-body {
+    padding: 1.5rem;
+    font-family: monospace;
+    font-size: 0.925rem;
+}
+
+.tutorial-modal-body h3 {
+    margin: 0;
+}
+
+.tutorial-tip {
+    color: #828894;
+    font-style: italic;
+}
+
+.agent-type-explain {
+    display: flex;
+    align-items: center;
+    gap: 1rem
+}
+
+.agent-type-explain h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.tutorial-button {
+    color: white;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.3rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.tutorial-button.blue {
+    background-color: #2563eb;
+}
+
+.tutorial-button.green {
+    color: black;
+    background-color: chartreuse;
+}
+
+.tutorial-button.gray {
+    color: black;
+    background-color: #f0f0f0;
+}
+
+.tutorial-button.entry {
+    background-color: #13b81b;
+}
+
+.tutorial-view-full-content {
+    border-bottom: 1.5px solid black;
+    font-style: italic;
+}

@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import type { InputVariableConfig, PromptTemplate, Prompt, TemplateName } from "../types/prompt";
 import api from "../utils/api";
 import DropdownMenu from "./items/DropdownMenu";
-import InputRow from "./items/InputRow";
 import SavePromptModal from "./modals/SavePromptModal";
 import WarningModal from "./modals/WarningModal";
+import TextAreaRow from "./items/TextAreaRow";
 
 function camelToSnake(key: string): string {
     return key
@@ -192,7 +192,7 @@ export default function PromptManager() {
                         .map(([variable, config]) => (
                             (config.inputRole === "user_input" &&
                                 <div key={variable}>
-                                    <InputRow
+                                    <TextAreaRow
                                         title={variable}
                                         placeholder={`Fill ${variable}`}
                                         value={inputVariableValue?.[variable] ?? ""}

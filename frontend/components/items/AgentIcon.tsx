@@ -1,6 +1,6 @@
 import { Calculator, Circle, CircleUserRound, CircleX, Shapes } from "lucide-react";
 
-export default function AgentIcon({ agentType, size }: { agentType: string, size: number; }) {
+export default function AgentIcon({ agentType, size }: { agentType: "classifier" | "gatekeeper" | "scorer" | "responder", size: number; }) {
     switch (agentType) {
         case "responder":
             return <CircleUserRound color="royalblue" size={size} />;

@@ -83,3 +83,24 @@
     background: #e5e7eb;
     font-weight: 600;
 }
+
+.textarea-container {
+    display: inline-flex;
+    box-sizing: border-box;
+    padding: 0.6rem 0.75rem;
+    width: 250px;
+    border-radius: 0.5rem;
+    border: 1px solid #d1d5db;
+    background: white;
+}
+
+.textarea-container textarea {
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-size: 0.875rem;
+    min-width: 100%;
+    max-width: 100%;
+    padding: 0;
+    resize: vertical;
+}

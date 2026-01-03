@@ -7,17 +7,18 @@ import Overview from "./Overview";
 import { FileStorage } from "./FileStorage";
 import GraphManager from "./GraphManager";
 import PromptManager from "./PromptManager";
-import ValidationModal from "./modals/ValidationModal";
-import InputQueryModal from "./modals/InputQueryModal";
+import StartModal from "./modals/StartModal";
+import { type validTabs } from "../types/tab";
 import type { Validation } from "../types/simulation";
 import api from "../utils/api";
 import ResultVisual from "./ResultVisual";
+import TutorialsModal from "./modals/TutorialsModal";
 
 export default function Dashboard() {
-    const [activeTab, setActiveTab] = useState<string>("");
+    const [activeTab, setActiveTab] = useState<validTabs>("overview");
     const [waitResult, setWaitResult] = useState<boolean>(false);
-    const [showValidaiton, setShowValidation] = useState<boolean>(false);
-    const [showInputQuery, setShowInputQuery] = useState<boolean>(false);
+    const [showStart, setShowStart] = useState<boolean>(false);
+    const [showTutorials, setShowTutorials] = useState<boolean>(false);
 
     const [validation, setValidation] = useState<Validation>();
 
@@ -32,29 +33,17 @@ export default function Dashboard() {
 
     const onClickStartSimulation = () => {
         loadValidation();
-        setShowValidation(true);
+        setShowStart(true);
     };
 
-    const onClose = () => {
-        setShowValidation(false);
-        setShowInputQuery(false);
-    };
-
-    const onNext = () => {
-        setShowValidation(false);
-        setShowInputQuery(true);
-    };
-
-    const onPrevious = () => {
-        setShowInputQuery(false);
-        setShowValidation(true);
+    const onCloseStart = () => {
+        setShowStart(false);
     };
 
     const onStart = async (query: string) => {
         setActiveTab("result");
         setWaitResult(true);
-        setShowValidation(false);
-        setShowInputQuery(false);
+        setShowStart(false);
 
         const data = await api.simulation.runSimulation(query);
         console.log(data);
@@ -63,6 +52,14 @@ export default function Dashboard() {
     const onClickResultTab = () => {
         setActiveTab('result');
         setWaitResult(false);
+    };
+
+    const onClickTutorials = () => {
+        setShowTutorials(true);
+    };
+
+    const onCloseTutorials = () => {
+        setShowTutorials(false);
     };
 
     const renderTabs = () => {
@@ -113,14 +110,17 @@ export default function Dashboard() {
         <div className="dashboard">
             <header className="header-container">
                 <h1>RAGentFlow</h1>
-                <button onClick={onClickStartSimulation}>🚀 Start RAG & MAS Simulation</button>
+                <div className="header-button">
+                    <button className="tutorial-button" onClick={onClickTutorials}>💡Tutorials</button>
+                    <button onClick={onClickStartSimulation}>🚀 Start RAG & MAS Simulation</button>
+                </div>
             </header>
 
             {renderTabs()}
             {renderMain()}
 
-            {showValidaiton && <ValidationModal validation={validation!} onClose={onClose} onNext={onNext} />}
-            {showInputQuery && <InputQueryModal onClose={onClose} onPrevious={onPrevious} onStart={onStart} />}
+            {showStart && <StartModal validation={validation!} onClose={onCloseStart} onStart={onStart} />}
+            {showTutorials && <TutorialsModal currentTab={activeTab} onClose={onCloseTutorials} />}
         </div>
     );
 }

@@ -4,7 +4,7 @@ import api from "../utils/api";
 import type { ChunkFile } from "../types/file";
 import type { AgentNode, Graph } from "../types/graph";
 import { renderPDFIcon } from "./FileStorage";
-import AgentIcon from "./AgentIcon";
+import AgentIcon from "./items/AgentIcon";
 
 export default function Overview() {
     const [fileList, setFileList] = useState<ChunkFile[]>([]);

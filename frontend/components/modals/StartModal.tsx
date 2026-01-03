@@ -2,8 +2,28 @@ import ModalHeader from "./ModalHeader";
 import ModalFooter from "./ModalFooter";
 import type { DuplicateCondition, MissingRoute, Requirement, Validation } from "../../types/simulation";
 import { Check, CircleAlert, X } from "lucide-react";
+import { useState } from "react";
 
-export default function ValidationModal({ validation, onClose, onNext }: { validation: Validation, onClose: Function, onNext: Function; }) {
+export default function StartModal({ validation, onClose, onStart }: {
+    validation: Validation,
+    onClose: Function,
+    onStart: Function;
+}) {
+    const [currentPage, setCurrentPage] = useState<"validation" | "query">("validation");
+    const [query, setQuery] = useState<string>("");
+
+    const handleNext = () => {
+        setCurrentPage("query");
+    };
+
+    const handlePrevious = () => {
+        setCurrentPage("validation");
+    };
+
+    const handleStart = () => {
+        onStart(query);
+    };
+
     const renderRequirements = () => {
         if (!validation) {
             return <></>;
@@ -84,13 +104,46 @@ export default function ValidationModal({ validation, onClose, onNext }: { valid
     return (
         <div className="modal-overlay">
             <section className="validation-modal-container">
-                <ModalHeader title="Validation" onClose={onClose} />
+                <ModalHeader
+                    title={currentPage === "validation" ? "Validation" : "Query"}
+                    onClose={onClose}
+                />
+
                 <div className="validation-modal-body">
-                    {renderRequirements()}
-                    {renderWarnings()}
+                    {currentPage === "validation" ? (
+                        <>
+                            {renderRequirements()}
+                            {renderWarnings()}
+                        </>
+                    ) : (
+                        <textarea
+                            className="query-text-area"
+                            placeholder="Enter your query here..."
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                        />
+                    )}
                 </div>
-                <ModalFooter submitLabel="Next" submitStyle="confirm" onClose={onClose} onSubmit={onNext} isDisabled={!validation || !validation.canProceed} />
+
+                {currentPage === "validation" ? (
+                    <ModalFooter
+                        submitLabel="Next"
+                        submitStyle="confirm"
+                        onClose={onClose}
+                        onSubmit={handleNext}
+                        isDisabled={!validation || !validation.canProceed}
+                    />
+                ) : (
+                    <ModalFooter
+                        cancelLabel="Previous"
+                        submitLabel="Submit"
+                        submitStyle="confirm"
+                        onClose={handlePrevious}
+                        onSubmit={handleStart}
+                        isDisabled={query.trim().length === 0}
+                    />
+                )}
             </section>
-        </div >
+        </div>
     );
 }
