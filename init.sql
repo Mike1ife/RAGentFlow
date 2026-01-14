@@ -41,8 +41,38 @@ EXECUTE FUNCTION set_saved_at();
 
 -- Default Prompt
 
-INSERT INTO prompt (name, template, variable_value)
+INSERT INTO prompt (name, template, variable_value, use_context)
 VALUES
+(
+    'professor prompt',
+    'guided_template',
+    '{
+        "persona": "Professor of Python course.",
+        "goal": "Answer query regarding Python language.",
+        "style": "Professional, tolerant, eager to stimulate thinking and use analogy to help student understand."
+    }'::jsonb,
+    TRUE
+),
+(
+    'ta prompt',
+    'guided_template',
+    '{
+        "persona": "TA of Python course.",
+        "goal": "Assist on solving Python-related problems.",
+        "style": "Not very certain about your solution. Usually use original documentation to answer the question instead of using your own tone."
+    }'::jsonb,
+    TRUE
+),
+(
+    'reminder prompt',
+    'structured_template',
+    '{
+        "system_header": "If this query is not about programming language, remind user that this interaction only involves programming language tutorials. Additionally, if this query is about programming language but not about Python, remind user that the topic solely focus on Python instead of other languages. Do not remind user it is Python-focused if it is not about programming language at first place.",
+        "persona_block": "You are a reminder that remind user the topic of current conversation or interaction.",
+        "style_block": "You have a very formal tone like HR. You are also careful person such that you always explain why people are wrong."
+    }'::jsonb,
+    FALSE
+),
 (
     'guided default',
     'guided_template',
@@ -50,7 +80,8 @@ VALUES
         "persona": "a knowledgeable and helpful assistant",
         "goal": "provide clear, accurate, and concise answers",
         "style": "professional, friendly, and easy to understand"
-    }'::jsonb
+    }'::jsonb,
+    TRUE
 ),
 (
     'structured default',
@@ -59,14 +90,16 @@ VALUES
         "system_header": "Follow best practices for correctness, safety, and clarity.",
         "persona_block": "You are an expert assistant with strong analytical and reasoning skills.",
         "style_block": "Use structured explanations, bullet points when helpful, and concise paragraphs."
-    }'::jsonb
+    }'::jsonb,
+    TRUE
 ),
 (
     'raw default',
     'raw_template',
     '{
         "raw_system_prompt": "You are a helpful AI assistant."
-    }'::jsonb
+    }'::jsonb,
+    TRUE
 );
 
 -- ====================== Graph ======================
@@ -111,21 +144,47 @@ BEGIN
     TRUNCATE TABLE edge;
     TRUNCATE TABLE agent_node CASCADE;
 
-    -- Response agent (responder type)
+        INSERT INTO agent_node (name, agent_type, is_entry, prompt_name)
+    VALUES ('Professor', 'responder', FALSE, 'professor prompt');
+
     INSERT INTO agent_node (name, agent_type, is_entry, prompt_name)
-    VALUES ('Default', 'responder', TRUE, 'guided default');
+    VALUES ('TA', 'responder', FALSE, 'ta prompt');
+
+    INSERT INTO agent_node (name, agent_type, is_entry, prompt_name)
+    VALUES ('Reminder', 'responder', FALSE, 'reminder prompt');
 
     -- Scorer agent
-    INSERT INTO agent_node (name, agent_type, output_field, decision_config)
-    VALUES ('Numeric', 'scorer', 'difficulty', '{"instruction": "Score difficulty from 0 to 1"}');
+    INSERT INTO agent_node (name, agent_type, output_field, decision_config, is_entry)
+    VALUES ('Difficulty', 'scorer', 'difficulty', '{"instruction": "Score difficulty from 0 to 1"}'::jsonb, FALSE);
 
     -- Gatekeeper agent
-    INSERT INTO agent_node (name, agent_type, output_field, decision_config)
-    VALUES ('Boolean', 'gatekeeper', 'is_academic', '{"question": "Is this query about academic or research topics?"}');
+    INSERT INTO agent_node (name, agent_type, output_field, decision_config, is_entry)
+    VALUES ('Is Python ?', 'gatekeeper', 'is_python', '{"question": "Is this query asking about python?"}'::jsonb, FALSE);
 
-    -- Classifier agent
-    INSERT INTO agent_node (name, agent_type, output_field, decision_config)
-    VALUES ('Classification', 'classifier', 'intent', '{"options": ["academic", "sports", "shopping"]}');
+    -- Classifier agent - This should be the entry point
+    INSERT INTO agent_node (name, agent_type, output_field, decision_config, is_entry)
+    VALUES ('Intention', 'classifier', 'intent', '{"options": ["programming language", "others"]}'::jsonb, TRUE);
+
+    -- Intent Edge
+    INSERT INTO edge (src_node, dest_node, operator, value)
+    VALUES ('Intention', 'Is Python ?', 'eq', '"programming language"'::jsonb);
+
+    INSERT INTO edge (src_node, dest_node, operator, value)
+    VALUES ('Intention', 'Reminder', 'eq', '"others"'::jsonb);
+
+    -- Boolean Edge
+    INSERT INTO edge (src_node, dest_node, operator, value)
+    VALUES ('Is Python ?', 'Difficulty', 'eq', 'true'::jsonb);
+
+    INSERT INTO edge (src_node, dest_node, operator, value)
+    VALUES ('Is Python ?', 'Reminder', 'eq', 'false'::jsonb);
+
+    -- Difficulty Edge
+    INSERT INTO edge (src_node, dest_node, operator, value)
+    VALUES ('Difficulty', 'Professor', 'gte', '0.4'::jsonb);
+
+    INSERT INTO edge (src_node, dest_node, operator, value)
+    VALUES ('Difficulty', 'TA', 'lt', '0.4'::jsonb);
 END;
 $$;
 

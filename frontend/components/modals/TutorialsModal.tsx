@@ -58,7 +58,7 @@ const overviewPage = [
                     <li>Connect agents with conditional logic</li>
                     <li>Test your workflow with queries</li>
                 </ul>
-                <div className="tutorial-note">
+                <div>
                     <span>📍 </span>
                     <span className="tutorial-tip">The tutorial content adapts to your current tab. Visit each tab and click the <span className="tutorial-button blue">Tutorial</span> button to learn about its specific features!</span>
                 </div>
@@ -82,8 +82,9 @@ const overviewPage = [
                     <li><strong>Query</strong>: Enter your test question</li>
                     <li>Click <span className="tutorial-button blue">Submit</span> to run</li>
                 </ol>
-                <div className="tutorial-tip">
-                    💡 The validation ensures your workflow is properly configured before running
+                <div>
+                    <span>💡 </span>
+                    <span className="tutorial-tip">The validation ensures your workflow is properly configured before running</span>
                 </div>
             </>
         )
@@ -104,6 +105,26 @@ const filePage = [
                 <div>
                     <span>💡 </span>
                     <span className="tutorial-tip">Upload documents relevant to your use case (FAQs, manuals, policies)</span>
+                </div>
+            </>
+        )
+    },
+    {
+        title: "Try Sample Files",
+        content: (
+            <>
+                <p>The default Python tutor workflow works best with Python-related content. Get started quickly:</p>
+
+                <h4>Using Sample Files</h4>
+                <ol>
+                    <li>Navigate to <strong>RAGentFlow/sample_file</strong> folder</li>
+                    <li>Upload sample Python documents</li>
+                    <li>Once uploaded, these will provide context for the Professor and TA agents</li>
+                </ol>
+
+                <div>
+                    <span>💡 </span>
+                    <span className="tutorial-tip">You can also upload your own Python tutorials, documentation, or course materials!</span>
                 </div>
             </>
         )
@@ -184,6 +205,45 @@ const graphPage = [
         )
     },
     {
+        title: "Default Python Tutor Workflow",
+        content: (
+            <>
+                <p>Your system comes with a pre-configured Python tutor workflow that demonstrates intelligent query routing:</p>
+
+                <h4>How it Works</h4>
+                <ol>
+                    <li><strong>Intention (Entry)</strong>: Classifies queries as "programming language" or "others"</li>
+                    <li><strong>Is Python?</strong>: Checks if programming queries are about Python</li>
+                    <li><strong>Difficulty</strong>: Scores Python questions from 0-1 based on complexity</li>
+                </ol>
+
+                <h4>Response Paths</h4>
+                <ul>
+                    <li><strong>Professor</strong>: Handles difficult Python questions ({"≥"}0.4)</li>
+                    <li><strong>TA</strong>: Assists with easier Python questions ({"<"}0.4)</li>
+                    <li><strong>Reminder</strong>: Politely redirects non-Python or non-programming queries</li>
+                </ul>
+
+                <div>
+                    <span>🔍 </span>
+                    <span className="tutorial-tip">Try: "How do decorators work in Python?" → Professor</span>
+                </div>
+                <div>
+                    <span>🔍 </span>
+                    <span className="tutorial-tip">Try: "How to initialize a variable in Python?" → TA</span>
+                </div>
+                <div>
+                    <span>🔍 </span>
+                    <span className="tutorial-tip">Try: "What's the weather today?" → Reminder</span>
+                </div>
+                <div>
+                    <span>🔍 </span>
+                    <span className="tutorial-tip">Try: "What's the difference between C and C++?" → Reminder</span>
+                </div>
+            </>
+        )
+    },
+    {
         title: "Building Your Workflow",
         content: (
             <>
@@ -208,9 +268,9 @@ const graphPage = [
                     <li>Define <strong>Condition</strong>: When this path should be taken</li>
                 </ol>
 
-                <div className="tutorial-example">
+                <div>
                     <span>📌 </span>
-                    <span>Example: Classifier "intent" = "billing" → Billing Responder</span>
+                    <span className="tutorial-tip">Example: Classifier "intent" = "billing" → Billing Responder</span>
                 </div>
             </>
         )
@@ -443,9 +503,9 @@ const resultPage = [
                     <li><strong>Responder Agents</strong>: Full prompt used, generated response</li>
                 </ul>
 
-                <div className="trace-example">
+                <div>
                     <span>📊 </span>
-                    <span>Example: Classifier → "intent" = "billing" → Billing Responder</span>
+                    <span className="tutorial-tip">Example: Classifier → "intent" = "billing" → Billing Responder</span>
                 </div>
             </>
         )
