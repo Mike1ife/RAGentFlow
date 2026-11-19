@@ -1,10 +1,16 @@
 FROM python:3.11.14-slim
 
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
 WORKDIR /app
 
-COPY requirements.txt .
+# Install CPU-only torch first so pip doesn't pull the multi-GB CUDA build
+RUN pip install torch==2.9.1 --index-url https://download.pytorch.org/whl/cpu
 
-RUN pip install -r requirements.txt && pip cache purge
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 COPY . .
 

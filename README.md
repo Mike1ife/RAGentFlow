@@ -22,7 +22,7 @@ RAGentFlow uses the following models for embeddings, reranking, and chat:
 | `all-MiniLM-L6-v2` | Tokenizer | Splits text into tokens for embedding / chunking | https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2 |
 | `all-MiniLM-L6-v2` | Embedding | Converts text into 384-dimensional vector embeddings | https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2 |
 | `ms-marco-MiniLM-L-6-v2` | Reranker | Reranks candidate passages for relevance | https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2 |
-| `LongCat-Flash-Chat` | LLM | Chat / reasoning | https://huggingface.co/meituan-longcat/LongCat-Flash-Chat |
+| `gemini-3.5-flash-lite` | LLM | Chat / reasoning (via the Google Gen AI SDK) | https://ai.google.dev/gemini-api/docs/models |
 
 ## Installation
 
@@ -46,17 +46,26 @@ Follow these steps to set up RAGentFlow locally:
 ## Usage
 
 1. **Set up your environment:**
-   - Acquire a LongCat API key from [https://longcat.chat/platform/api_keys](https://longcat.chat/platform/api_keys)
-   - Rename `.env.example` to `.env` and set the `API_KEY` value.
-  
+   - Get a Gemini API key from [Google AI Studio](https://aistudio.google.com/apikey).
+   - Rename `backend/.env.example` to `backend/.env` and set `GEMINI_API_KEY`.
+   - Optional: set `GEMINI_MODEL` to use a different Gemini model (default: `gemini-3.5-flash-lite`).
+
 2. **Run the application:**
     ```bash
-    docker compose up
+    docker compose up -d
     ```
+    The backend takes about 30 seconds to load its embedding models on startup. Follow progress with `docker compose logs -f backend`.
 
 3. **Access the application:**
    - API documentation: http://localhost:8000/docs
    - Frontend interface: http://localhost:5173
 
+4. **Useful commands:**
+   - Stop the app: `docker compose down`
+   - Rebuild after changing `requirements.txt` or `package.json`: `docker compose up -d --build`
+   - Reload after editing `backend/.env`: `docker compose up -d --force-recreate backend`
+
+   Code changes in `backend/` and `frontend/` reload automatically.
+
 ## License
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/Mike1ife/Evolutionary-Computation-Project/blob/main/LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

@@ -36,8 +36,8 @@ export default function Overview() {
                 <div className="card-container">
                     <div className="card">
                         <h4>Language Model</h4>
-                        <p className="model-name">LongCat-Flash-Chat</p>
-                        <p className="model-description">OpenAI-compatible chat model for text generation</p>
+                        <p className="model-name">Gemini-3.5-Flash-Lite</p>
+                        <p className="model-description">Gemini chat model for text generation</p>
                     </div>
                     <div className="card">
                         <h4>Embedding Model</h4>

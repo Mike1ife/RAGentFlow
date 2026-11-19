@@ -10,6 +10,7 @@ from psycopg.types.json import Json
 from schema import AgentNode, Edge, Condition, Graph
 from database import conn
 from models import model
+from utils import parse_json
 from prompt import PromptManager
 
 load_dotenv()
@@ -40,7 +41,7 @@ def _classifier_agent(state: State, output_field: str, config: dict) -> dict:
     }}
     """
 
-    response = json.loads(model.invoke(prompt).content)
+    response = parse_json(model.invoke(prompt).content)
     value = response["value"]
     reason = response.get("reason", "")
 
@@ -64,7 +65,7 @@ def _gatekeeper_agent(state: State, output_field: str, config: dict) -> dict:
     }}
     """
 
-    response = json.loads(model.invoke(prompt).content)
+    response = parse_json(model.invoke(prompt).content)
     value = bool(response["value"])
     reason = response.get("reason", "")
 
@@ -88,7 +89,7 @@ def _scorer_agent(state: State, output_field: str, config: dict) -> dict:
     }}
     """
 
-    response = json.loads(model.invoke(prompt).content)
+    response = parse_json(model.invoke(prompt).content)
     value = float(response["value"])
     reason = response.get("reason", "")
 

@@ -58,12 +58,14 @@
     display: flex;
     gap: 0.7rem;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .file-row-button button {
     background-color: chartreuse;
     border: none;
     height: 1.5rem;
+    padding: 0 0.6rem;
     border-radius: 0.5rem;
     font-size: 1rem;
     font-weight: 500;
@@ -97,13 +99,16 @@
 
 .file-row {
     display: flex;
+    align-items: center;
     gap: 1rem;
 }
 
 .filename {
     margin: 0;
     font-weight: 400;
-    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .timestamp {
